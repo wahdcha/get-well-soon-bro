@@ -1,1431 +1,808 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>WOI, SEMBUH.</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            overflow-x: hidden;
-            color: white;
-
-            background:
-                radial-gradient(circle at top left, #3b1d58, transparent 35%),
-                radial-gradient(circle at bottom right, #182d5c, transparent 35%),
-                #080812;
-        }
-
-        /* =========================
-           BINTANG
-        ========================= */
-
-        .stars {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .star {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.7;
-
-            animation: twinkle 2s infinite alternate;
-        }
-
-        @keyframes twinkle {
-            from {
-                opacity: 0.2;
-                transform: scale(0.7);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1.3);
-            }
-        }
-
-        /* =========================
-           CONTAINER
-        ========================= */
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        .container {
-            position: relative;
-            z-index: 2;
+<title>WOI, SEMBUH.</title>
 
-            width: 100%;
-            max-width: 850px;
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
 
-            margin: auto;
-            padding: 35px 20px 50px;
+    background:
+        radial-gradient(circle at top, #302b63, transparent 45%),
+        linear-gradient(135deg, #0f0c29, #302b63, #24243e);
 
-            text-align: center;
-        }
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-        .top-text {
-            font-size: 13px;
-            opacity: 0.6;
-            letter-spacing: 2px;
+    overflow-x: hidden;
+    transition: background 1s ease;
+}
 
-            margin-bottom: 12px;
-        }
+/* BINTANG */
 
-        h1 {
-            font-size: clamp(42px, 10vw, 82px);
-            font-weight: 900;
+.star {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    opacity: .7;
+    animation: twinkle 2s infinite alternate;
+}
 
-            line-height: 0.95;
-            letter-spacing: -3px;
+@keyframes twinkle {
+    from {
+        opacity: .2;
+    }
 
-            text-shadow:
-                0 0 30px rgba(255, 100, 180, 0.35);
-        }
+    to {
+        opacity: 1;
+    }
+}
 
-        .subtitle {
-            margin-top: 15px;
+/* CONTAINER */
 
-            font-size: 15px;
-            opacity: 0.7;
-        }
+.container {
+    width: 90%;
+    max-width: 620px;
+    text-align: center;
+    padding: 30px 0;
+    position: relative;
+    z-index: 2;
+}
 
-        /* =========================
-           HEART
-        ========================= */
+/* JUDUL */
 
-        .heart {
-            font-size: 90px;
+h1 {
+    font-size: 50px;
+    margin: 0 0 10px;
 
-            margin: 35px auto 10px;
+    text-shadow:
+        0 0 10px rgba(255,255,255,.3),
+        0 0 30px rgba(150,120,255,.4);
+}
 
-            cursor: pointer;
-            user-select: none;
+.subtitle {
+    opacity: .75;
+    margin-bottom: 25px;
+}
 
-            width: fit-content;
+/* CARD */
 
-            animation: heartbeat 1.3s infinite;
+.card {
+    background: rgba(255,255,255,.1);
 
-            transition: transform 0.2s;
-        }
+    border: 1px solid rgba(255,255,255,.15);
 
-        .heart:hover {
-            transform: scale(1.15);
-        }
+    backdrop-filter: blur(15px);
 
-        .heart:active {
-            transform: scale(0.85);
-        }
+    border-radius: 25px;
 
-        @keyframes heartbeat {
-            0%, 100% {
-                transform: scale(1);
-            }
+    padding: 30px;
 
-            15% {
-                transform: scale(1.15);
-            }
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.35);
 
-            30% {
-                transform: scale(1);
-            }
+    animation: appear .7s ease;
+}
 
-            45% {
-                transform: scale(1.1);
-            }
-        }
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
 
-        /* =========================
-           MESSAGE
-        ========================= */
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        .message {
-            min-height: 55px;
+/* MESSAGE */
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+.message {
+    min-height: 80px;
 
-            max-width: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-            margin: 15px auto 30px;
+    font-size: 18px;
+    line-height: 1.6;
 
-            padding: 15px 20px;
+    margin-bottom: 25px;
 
-            border-radius: 18px;
+    transition: .3s;
+}
 
-            background: rgba(255,255,255,0.06);
+/* BUTTON */
 
-            border:
-                1px solid rgba(255,255,255,0.1);
+button {
+    border: none;
 
-            backdrop-filter: blur(15px);
+    border-radius: 15px;
 
-            font-size: 15px;
-            line-height: 1.5;
-        }
+    padding: 13px 18px;
 
-        /* =========================
-           ITEM BUTTONS
-        ========================= */
+    margin: 6px;
 
-        .items {
-            display: grid;
+    color: white;
 
-            grid-template-columns:
-                repeat(4, 1fr);
+    background: rgba(255,255,255,.14);
 
-            gap: 12px;
+    border: 1px solid rgba(255,255,255,.1);
 
-            margin-top: 20px;
-        }
+    cursor: pointer;
 
-        .item {
-            border: none;
+    font-size: 15px;
 
-            padding: 18px 10px;
+    transition: .2s;
+}
 
-            border-radius: 20px;
+button:hover {
+    transform: translateY(-3px) scale(1.04);
 
-            color: white;
+    background: rgba(255,255,255,.25);
 
-            background:
-                rgba(255,255,255,0.07);
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.25);
+}
 
-            border:
-                1px solid rgba(255,255,255,0.1);
+button:active {
+    transform: scale(.92);
+}
 
-            cursor: pointer;
+/* PROGRESS */
 
-            transition: 0.25s;
+.progress {
+    margin-top: 30px;
+}
 
-            backdrop-filter: blur(10px);
-        }
+.progress-text {
+    font-size: 14px;
+    opacity: .75;
+}
 
-        .item:hover {
-            transform: translateY(-5px);
+.progress-bar {
+    height: 10px;
 
-            background:
-                rgba(255,255,255,0.13);
-        }
+    background: rgba(255,255,255,.12);
 
-        .item:active {
-            transform: scale(0.95);
-        }
+    border-radius: 20px;
 
-        .item .emoji {
-            display: block;
+    overflow: hidden;
 
-            font-size: 30px;
+    margin-top: 10px;
+}
 
-            margin-bottom: 8px;
-        }
+.progress-fill {
+    width: 15%;
+    height: 100%;
 
-        .item span:last-child {
-            font-size: 12px;
-        }
+    background: white;
 
-        /* =========================
-           MUSIC
-        ========================= */
+    border-radius: 20px;
 
-        .music-box {
-            margin-top: 25px;
+    transition: width 1s ease;
+}
 
-            padding: 20px;
+/* FOOTER */
 
-            border-radius: 22px;
+.footer {
+    margin-top: 20px;
 
-            background:
-                rgba(255,255,255,0.06);
+    opacity: .45;
 
-            border:
-                1px solid rgba(255,255,255,0.1);
+    font-size: 13px;
+}
 
-            backdrop-filter: blur(15px);
-        }
+/* HUJAN */
 
-        .music-title {
-            font-size: 14px;
-            font-weight: bold;
+.rain {
+    position: fixed;
 
-            margin-bottom: 5px;
-        }
+    top: -30px;
 
-        .music-subtitle {
-            font-size: 11px;
-            opacity: 0.5;
+    width: 2px;
+    height: 25px;
 
-            margin-bottom: 14px;
-        }
+    background: rgba(255,255,255,.5);
 
-        .music-button {
-            padding: 13px 20px;
+    animation: rainFall linear infinite;
 
-            border: none;
-            border-radius: 50px;
+    z-index: 1;
+}
 
-            color: white;
+@keyframes rainFall {
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #ff4f9a,
-                    #805cff
-                );
+    from {
+        transform: translateY(-50px);
+    }
 
-            cursor: pointer;
+    to {
+        transform: translateY(110vh);
+    }
 
-            font-size: 13px;
-            font-weight: bold;
+}
 
-            transition: 0.25s;
-        }
+/* SHAKE */
 
-        .music-button:hover {
-            transform: translateY(-3px) scale(1.03);
-        }
+.shake {
+    animation: shake .35s;
+}
 
-        .music-button:active {
-            transform: scale(0.95);
-        }
+@keyframes shake {
 
-        /* =========================
-           PROGRESS
-        ========================= */
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
 
-        .progress-area {
-            margin-top: 35px;
+}
 
-            text-align: left;
-        }
+/* HEART */
 
-        .progress-info {
-            display: flex;
+.heart {
+    position: fixed;
 
-            justify-content: space-between;
+    font-size: 25px;
 
-            font-size: 12px;
+    pointer-events: none;
 
-            opacity: 0.7;
+    animation: heartUp 1.5s ease forwards;
 
-            margin-bottom: 8px;
-        }
+    z-index: 10;
+}
 
-        .progress {
-            height: 14px;
+@keyframes heartUp {
 
-            width: 100%;
+    from {
+        transform: translateY(0) scale(.5);
+        opacity: 1;
+    }
 
-            background:
-                rgba(255,255,255,0.08);
+    to {
+        transform: translateY(-120px) scale(1.4);
+        opacity: 0;
+    }
 
-            border-radius: 50px;
-
-            overflow: hidden;
-
-            border:
-                1px solid rgba(255,255,255,0.08);
-        }
-
-        .bar {
-            width: 15%;
-
-            height: 100%;
-
-            border-radius: 50px;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #ff4f9a,
-                    #9d6bff
-                );
-
-            transition:
-                width 0.7s ease;
-
-            box-shadow:
-                0 0 20px
-                rgba(255, 79, 154, 0.5);
-        }
-
-        /* =========================
-           HEAL BUTTON
-        ========================= */
-
-        .heal-button {
-            margin-top: 30px;
-
-            padding: 17px 28px;
-
-            border: none;
-
-            border-radius: 50px;
-
-            color: white;
-
-            font-size: 15px;
-            font-weight: bold;
-
-            cursor: pointer;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #ff4f9a,
-                    #805cff
-                );
-
-            box-shadow:
-                0 10px 30px
-                rgba(150, 70, 255, 0.3);
-
-            transition: 0.25s;
-        }
-
-        .heal-button:hover {
-            transform:
-                translateY(-3px)
-                scale(1.03);
-
-            box-shadow:
-                0 15px 35px
-                rgba(150, 70, 255, 0.45);
-        }
-
-        .heal-button:active {
-            transform: scale(0.95);
-        }
-
-        .small-note {
-            margin-top: 12px;
-
-            font-size: 11px;
-
-            opacity: 0.4;
-        }
-
-        /* =========================
-           PARTICLES
-        ========================= */
-
-        .particle {
-            position: fixed;
-
-            pointer-events: none;
-
-            z-index: 99;
-
-            font-size: 20px;
-
-            animation:
-                floatUp 1.8s
-                ease-out
-                forwards;
-        }
-
-        @keyframes floatUp {
-            0% {
-                opacity: 1;
-
-                transform:
-                    translateY(0)
-                    scale(0.5)
-                    rotate(0deg);
-            }
-
-            100% {
-                opacity: 0;
-
-                transform:
-                    translateY(-180px)
-                    scale(1.5)
-                    rotate(25deg);
-            }
-        }
-
-        /* =========================
-           MODAL SURAT
-        ========================= */
-
-        .modal {
-            position: fixed;
-
-            inset: 0;
-
-            background:
-                rgba(0,0,0,0.7);
-
-            backdrop-filter: blur(8px);
-
-            display: none;
-
-            justify-content: center;
-            align-items: center;
-
-            z-index: 50;
-
-            padding: 20px;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .letter {
-            width: 100%;
-            max-width: 500px;
-
-            padding: 30px;
-
-            border-radius: 25px;
-
-            background: #151521;
-
-            border:
-                1px solid rgba(255,255,255,0.1);
-
-            box-shadow:
-                0 30px 80px
-                rgba(0,0,0,0.5);
-
-            text-align: left;
-
-            animation:
-                popUp 0.35s ease;
-        }
-
-        @keyframes popUp {
-            from {
-                opacity: 0;
-
-                transform:
-                    translateY(30px)
-                    scale(0.95);
-            }
-
-            to {
-                opacity: 1;
-
-                transform:
-                    translateY(0)
-                    scale(1);
-            }
-        }
-
-        .letter h2 {
-            margin-bottom: 20px;
-
-            font-size: 23px;
-        }
-
-        .letter p {
-            font-size: 14px;
-
-            line-height: 1.8;
-
-            opacity: 0.85;
-
-            margin-bottom: 12px;
-        }
-
-        .close-letter {
-            margin-top: 15px;
-
-            padding: 11px 18px;
-
-            border: none;
-
-            border-radius: 12px;
-
-            background:
-                rgba(255,255,255,0.1);
-
-            color: white;
-
-            cursor: pointer;
-        }
-
-        .close-letter:hover {
-            background:
-                rgba(255,255,255,0.18);
-        }
-
-        /* =========================
-           HUG SCREEN
-        ========================= */
-
-        .hug-screen {
-            position: fixed;
-
-            inset: 0;
-
-            z-index: 70;
-
-            display: none;
-
-            justify-content: center;
-            align-items: center;
-
-            flex-direction: column;
-
-            background:
-                rgba(10,8,20,0.95);
-
-            text-align: center;
-        }
-
-        .hug-screen.show {
-            display: flex;
-        }
-
-        .big-hug {
-            font-size: 120px;
-
-            animation:
-                hugAnimation
-                1.2s
-                infinite alternate;
-        }
-
-        .hug-text {
-            margin-top: 15px;
-
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .hug-subtext {
-            margin-top: 8px;
-
-            font-size: 13px;
-
-            opacity: 0.6;
-        }
-
-        @keyframes hugAnimation {
-            from {
-                transform: scale(1);
-            }
-
-            to {
-                transform: scale(1.15);
-            }
-        }
-
-        /* =========================
-           HUJAN
-        ========================= */
-
-        .rain {
-            position: fixed;
-
-            inset: 0;
-
-            z-index: 40;
-
-            pointer-events: none;
-
-            display: none;
-
-            overflow: hidden;
-        }
-
-        .rain.active {
-            display: block;
-        }
-
-        .drop {
-            position: absolute;
-
-            top: -30px;
-
-            width: 2px;
-
-            height: 25px;
-
-            background:
-                rgba(150,190,255,0.5);
-
-            animation:
-                rainFall
-                linear
-                infinite;
-        }
-
-        @keyframes rainFall {
-            to {
-                transform:
-                    translateY(110vh);
-            }
-        }
-
-        /* =========================
-           RESPONSIVE HP
-        ========================= */
-
-        @media (max-width: 650px) {
-
-            .container {
-                padding:
-                    30px 15px 40px;
-            }
-
-            .items {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-            h1 {
-                letter-spacing: -2px;
-            }
-
-            .heart {
-                font-size: 75px;
-            }
-
-            .letter {
-                padding: 24px;
-            }
-        }
-    </style>
+}
+</style>
 </head>
 
 <body>
 
-    <!-- BINTANG -->
-    <div class="stars" id="stars"></div>
+<!-- BINTANG -->
+<div class="star" style="left:10%;top:15%"></div>
+<div class="star" style="left:20%;top:35%"></div>
+<div class="star" style="left:80%;top:20%"></div>
+<div class="star" style="left:90%;top:50%"></div>
+<div class="star" style="left:65%;top:75%"></div>
+<div class="star" style="left:35%;top:80%"></div>
+<div class="star" style="left:50%;top:12%"></div>
+<div class="star" style="left:5%;top:70%"></div>
 
-    <!-- HUJAN -->
-    <div class="rain" id="rain"></div>
+<div class="container">
 
+    <h1>WOI, SEMBUH.</h1>
 
-    <main class="container">
+    <div class="subtitle">
+        badan lu lagi error. jangan sok kuat.
+    </div>
 
-        <div class="top-text">
-            PUSAT PENANGANAN MANUSIA BANDEL
-        </div>
+    <div class="card" id="card">
 
+        <div class="message" id="message">
 
-        <h1>WOI, SEMBUH.</h1>
-
-
-        <div class="subtitle">
-            ini bukan rumah sakit. cuma gua yang kebanyakan peduli.
-        </div>
-
-
-        <!-- HATI -->
-        <div
-            class="heart"
-            id="heart"
-            onclick="heartClick()"
-        >
-            ❤️
-        </div>
-
-
-        <div
-            class="message"
-            id="message"
-        >
-            status kesehatan: agak mencurigakan.
-        </div>
-
-
-        <!-- ITEM -->
-        <div class="items">
-
-            <button
-                class="item"
-                onclick="takeMedicine()"
-            >
-                <span class="emoji">💊</span>
-                <span>obat</span>
-            </button>
-
-
-            <button
-                class="item"
-                onclick="giveHug()"
-            >
-                <span class="emoji">🫂</span>
-                <span>peluk darurat</span>
-            </button>
-
-
-            <button
-                class="item"
-                onclick="openLetter()"
-            >
-                <span class="emoji">📄</span>
-                <span>surat peringatan</span>
-            </button>
-
-
-            <button
-                class="item"
-                onclick="toggleRain()"
-            >
-                <span class="emoji">🌧️</span>
-                <span>mode hujan</span>
-            </button>
+            minum obat, minum air, terus istirahat.
+            kerjaan nggak bakal kabur.
 
         </div>
 
 
-        <!-- MUSIK -->
-        <div class="music-box">
+        <!-- TOMBOL -->
 
-            <div class="music-title">
-                🎵 playlist buat manusia sakit
-            </div>
+        <button onclick="obat()">
+            💊 OBAT
+        </button>
 
-            <div class="music-subtitle">
-                biar sakitnya ditemenin Nadin
-            </div>
+        <button onclick="peluk()">
+            🫂 PELUK DARURAT
+        </button>
 
+        <button onclick="surat()">
+            📄 SURAT PERINGATAN
+        </button>
 
-            <audio
-                id="music"
-                loop
-            >
-                <source
-                    src="Tawa Nadin Amizah.mp3"
-                    type="audio/mpeg"
-                >
-            </audio>
-
-
-            <button
-                class="music-button"
-                id="musicButton"
-                onclick="toggleMusic()"
-            >
-                🎵 PUTER LAGU
-            </button>
-
-        </div>
-
-
-        <!-- PROGRESS -->
-        <div class="progress-area">
-
-            <div class="progress-info">
-
-                <span>
-                    tingkat kesembuhan
-                </span>
-
-                <span id="percentage">
-                    15%
-                </span>
-
-            </div>
-
-
-            <div class="progress">
-
-                <div
-                    class="bar"
-                    id="bar"
-                ></div>
-
-            </div>
-
-        </div>
-
-
-        <!-- SEMBUH -->
-        <button
-            class="heal-button"
-            onclick="healMe()"
-        >
-            🧪 PENCET KALAU MAU SEMBUH
+        <button onclick="hujan()">
+            🌧️ MODE HUJAN
         </button>
 
 
-        <div class="small-note">
-            jangan dipencet kalau niatnya cuma gaya-gayaan.
-        </div>
+        <!-- PROGRESS -->
 
-    </main>
+        <div class="progress">
 
+            <div class="progress-text" id="progressText">
 
-    <!-- SURAT -->
-    <div
-        class="modal"
-        id="letterModal"
-    >
+                tingkat kesembuhan: 15%
 
-        <div class="letter">
+            </div>
 
-            <h2>
-                📄 SURAT PERINGATAN KERAS
-            </h2>
+            <div class="progress-bar">
 
+                <div
+                    class="progress-fill"
+                    id="progressFill">
+                </div>
 
-            <p>
-                kepada manusia yang sedang sakit,
-            </p>
-
-
-            <p>
-                dengan ini gua menyatakan bahwa lu WAJIB
-                minum air, makan, minum obat, dan tidur.
-            </p>
-
-
-            <p>
-                kalimat
-                <b>"gua gapapa"</b>
-                tidak berlaku selama muka lu masih kayak
-                habis ditabrak kehidupan.
-            </p>
-
-
-            <p>
-                jangan sok kuat.
-                lu boleh manja bentar,
-                tapi jangan kebablasan.
-            </p>
-
-
-            <p>
-                cepet sembuh.
-                gua masih mau ribut sama lu.
-            </p>
-
-
-            <p>
-                sekian.
-                patuhi sebelum gua kesel.
-            </p>
-
-
-            <button
-                class="close-letter"
-                onclick="closeLetter()"
-            >
-                iya iya, bawel
-            </button>
+            </div>
 
         </div>
 
     </div>
 
+    <div class="footer">
 
-    <!-- PELUK -->
-    <div
-        class="hug-screen"
-        id="hugScreen"
-    >
-
-        <div class="big-hug">
-            🫂
-        </div>
-
-
-        <div class="hug-text">
-            nih peluk. jangan geer.
-        </div>
-
-
-        <div class="hug-subtext">
-            cuma bentar. abis itu sembuh.
-        </div>
+        dibuat khusus buat manusia yang keras kepala
+        tapi harus sembuh.
 
     </div>
 
+</div>
 
-    <script>
 
-        /* =========================
-           BINTANG
-        ========================= */
+<script>
 
-        const stars =
-            document.getElementById("stars");
+/* =========================
+   SOUND EFFECT
+========================= */
 
+let audioContext;
 
-        for (let i = 0; i < 100; i++) {
 
-            const star =
-                document.createElement("div");
+/* bikin audio context setelah user klik */
 
+function getAudio() {
 
-            star.className = "star";
+    if (!audioContext) {
 
+        audioContext =
+            new (window.AudioContext ||
+            window.webkitAudioContext)();
 
-            star.style.left =
-                Math.random() * 100 + "%";
+    }
 
+    return audioContext;
 
-            star.style.top =
-                Math.random() * 100 + "%";
+}
 
 
-            star.style.animationDelay =
-                Math.random() * 2 + "s";
+/* SOUND KLIK */
 
+function clickSound() {
 
-            stars.appendChild(star);
-        }
+    const ctx = getAudio();
 
+    const osc = ctx.createOscillator();
 
-        /* =========================
-           KESEHATAN
-        ========================= */
+    const gain = ctx.createGain();
 
-        let health = 15;
+    osc.connect(gain);
 
+    gain.connect(ctx.destination);
 
-        const messages = [
+    osc.frequency.value = 700;
 
-            "WOI. badan lu lagi error, jangan malah sok kuat.",
+    gain.gain.setValueAtTime(
+        0.08,
+        ctx.currentTime
+    );
 
-            "obat udah diminum apa masih jadi pajangan?",
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        ctx.currentTime + 0.12
+    );
 
-            "minum air putih. iya, sekarang. jangan nunggu kiamat.",
+    osc.start();
 
-            "lu boleh sakit, tapi jangan dramatis. bagian dramatis biar gua.",
+    osc.stop(
+        ctx.currentTime + 0.12
+    );
 
-            "istirahat sana. urusan dunia bisa nunggu, badan lu nggak.",
+}
 
-            "cepet sembuh, gua masih butuh orang buat gua ganggu.",
 
-            "muka lu udah kayak baterai 3%, masih aja sok full.",
+/* SOUND OBAT */
 
-            'kalau bilang "gapapa" sekali lagi, gua laporin ke dokter.',
+function medicineSound() {
 
-            "tidur. ini perintah, bukan saran.",
+    const ctx = getAudio();
 
-            "lu tuh kalau disuruh jaga kesehatan kenapa susah banget sih?",
+    const osc = ctx.createOscillator();
 
-            "jangan sok kuat. gua tau lu capek.",
+    const gain = ctx.createGain();
 
-            "badan lu bukan mesin. istirahat sono.",
+    osc.connect(gain);
 
-            "gua marah kalau lu bandel, bukan karena benci. karena peduli, tolol."
-        ];
+    gain.connect(ctx.destination);
 
+    osc.type = "sine";
 
-        /* =========================
-           UPDATE KESEHATAN
-        ========================= */
+    osc.frequency.setValueAtTime(
+        500,
+        ctx.currentTime
+    );
 
-        function updateHealth(amount) {
+    osc.frequency.exponentialRampToValueAtTime(
+        900,
+        ctx.currentTime + .2
+    );
 
-            health += amount;
+    gain.gain.setValueAtTime(
+        .12,
+        ctx.currentTime
+    );
 
+    gain.gain.exponentialRampToValueAtTime(
+        .001,
+        ctx.currentTime + .35
+    );
 
-            if (health > 100) {
-                health = 100;
-            }
+    osc.start();
 
+    osc.stop(
+        ctx.currentTime + .35
+    );
 
-            if (health < 0) {
-                health = 0;
-            }
+}
 
 
-            document.getElementById("bar")
-                .style.width =
-                health + "%";
+/* SOUND PELUK */
 
+function hugSound() {
 
-            document.getElementById("percentage")
-                .innerText =
-                health + "%";
-        }
+    const ctx = getAudio();
 
+    const osc = ctx.createOscillator();
 
-        /* =========================
-           PESAN RANDOM
-        ========================= */
+    const gain = ctx.createGain();
 
-        function randomMessage() {
+    osc.connect(gain);
 
-            const random =
-                messages[
-                    Math.floor(
-                        Math.random() *
-                        messages.length
-                    )
-                ];
+    gain.connect(ctx.destination);
 
+    osc.type = "sine";
 
-            document.getElementById("message")
-                .innerText =
-                random;
-        }
+    osc.frequency.value = 220;
 
+    gain.gain.setValueAtTime(
+        .001,
+        ctx.currentTime
+    );
 
-        /* =========================
-           HATI
-        ========================= */
+    gain.gain.linearRampToValueAtTime(
+        .12,
+        ctx.currentTime + .15
+    );
 
-        function heartClick() {
+    gain.gain.exponentialRampToValueAtTime(
+        .001,
+        ctx.currentTime + .7
+    );
 
-            randomMessage();
+    osc.start();
 
-            updateHealth(5);
+    osc.stop(
+        ctx.currentTime + .7
+    );
 
-            createParticles(8);
+}
 
 
-            const heart =
-                document.getElementById("heart");
+/* SOUND SURAT */
 
+function warningSound() {
 
-            heart.innerText = "💗";
+    const ctx = getAudio();
 
+    const osc = ctx.createOscillator();
 
-            setTimeout(() => {
+    const gain = ctx.createGain();
 
-                heart.innerText = "❤️";
+    osc.connect(gain);
 
-            }, 500);
-        }
+    gain.connect(ctx.destination);
 
+    osc.type = "square";
 
-        /* =========================
-           OBAT
-        ========================= */
+    osc.frequency.value = 180;
 
-        function takeMedicine() {
+    gain.gain.setValueAtTime(
+        .07,
+        ctx.currentTime
+    );
 
-            document.getElementById("message")
-                .innerText =
-                "💊 OBAT WOI. BUKAN BUAT DIJADI PAJANGAN.";
+    gain.gain.exponentialRampToValueAtTime(
+        .001,
+        ctx.currentTime + .25
+    );
 
+    osc.start();
 
-            updateHealth(10);
+    osc.stop(
+        ctx.currentTime + .25
+    );
 
-            createParticles(5);
-        }
+}
 
 
-        /* =========================
-           PELUK
-        ========================= */
+/* =========================
+   SUARA HUJAN
+========================= */
 
-        function giveHug() {
+let rainAudio;
 
-            document
-                .getElementById("hugScreen")
-                .classList.add("show");
+function startRainSound() {
 
+    const ctx = getAudio();
 
-            document.getElementById("message")
-                .innerText =
-                "🫂 nih peluk. jangan geer.";
+    if (rainAudio) return;
 
+    const bufferSize =
+        2 * ctx.sampleRate;
 
-            updateHealth(10);
+    const buffer =
+        ctx.createBuffer(
+            1,
+            bufferSize,
+            ctx.sampleRate
+        );
 
-            createParticles(15);
+    const data =
+        buffer.getChannelData(0);
 
+    for (
+        let i = 0;
+        i < bufferSize;
+        i++
+    ) {
 
-            setTimeout(() => {
+        data[i] =
+            Math.random() * 2 - 1;
 
-                document
-                    .getElementById("hugScreen")
-                    .classList.remove("show");
+    }
 
-            }, 2500);
-        }
+    rainAudio =
+        ctx.createBufferSource();
 
+    const filter =
+        ctx.createBiquadFilter();
 
-        /* =========================
-           SURAT
-        ========================= */
+    const gain =
+        ctx.createGain();
 
-        function openLetter() {
+    rainAudio.buffer = buffer;
 
-            document
-                .getElementById("letterModal")
-                .classList.add("show");
-        }
+    rainAudio.loop = true;
 
+    filter.type = "lowpass";
 
-        function closeLetter() {
+    filter.frequency.value = 4500;
 
-            document
-                .getElementById("letterModal")
-                .classList.remove("show");
+    gain.gain.value = .045;
 
+    rainAudio
+        .connect(filter)
+        .connect(gain)
+        .connect(ctx.destination);
 
-            document.getElementById("message")
-                .innerText =
-                "iya iya, akhirnya baca juga.";
+    rainAudio.start();
 
+}
 
-            updateHealth(10);
-        }
 
+/* =========================
+   BUTTON FUNCTIONS
+========================= */
 
-        /* =========================
-           MODE HUJAN
-        ========================= */
+const message =
+    document.getElementById("message");
 
-        let raining = false;
+const card =
+    document.getElementById("card");
 
+const progressFill =
+    document.getElementById("progressFill");
 
-        function toggleRain() {
+const progressText =
+    document.getElementById("progressText");
 
-            const rain =
-                document.getElementById("rain");
 
+function obat() {
 
-            raining = !raining;
+    medicineSound();
 
+    message.innerText =
+        "💊 MINUM OBAT. jangan nunggu badan lu bikin pengumuman resmi.";
 
-            if (raining) {
+    card.classList.remove("shake");
 
-                rain.classList.add("active");
+    void card.offsetWidth;
 
+    card.classList.add("shake");
 
-                document.getElementById("message")
-                    .innerText =
-                    "🌧️ mode hujan aktif. selamat, sekarang lu jadi tokoh utama video klip galau.";
+    progressFill.style.width = "35%";
 
+    progressText.innerText =
+        "tingkat kesembuhan: 35%";
 
-                createRain();
+}
 
-            } else {
 
-                rain.classList.remove("active");
+/* PELUK */
 
-                rain.innerHTML = "";
+function peluk() {
 
+    hugSound();
 
-                document.getElementById("message")
-                    .innerText =
-                    "hujan dimatiin. jangan ikut mellow.";
-            }
-        }
+    message.innerText =
+        "🫂 sini diem. peluk darurat dikirim. jangan banyak protes.";
 
+    createHearts();
 
-        function createRain() {
+}
 
-            const rain =
-                document.getElementById("rain");
 
+/* SURAT */
 
-            rain.innerHTML = "";
+function surat() {
 
+    warningSound();
 
-            for (let i = 0; i < 100; i++) {
+    message.innerText =
+        "📄 SURAT PERINGATAN: dilarang keras maksa kerja saat badan lagi sakit.";
 
-                const drop =
-                    document.createElement("div");
+    card.classList.remove("shake");
 
+    void card.offsetWidth;
 
-                drop.className = "drop";
+    card.classList.add("shake");
 
+}
 
-                drop.style.left =
-                    Math.random() * 100 + "%";
 
+/* HUJAN */
 
-                drop.style.animationDuration =
-                    (0.5 + Math.random() * 0.7) + "s";
+let raining = false;
 
+function hujan() {
 
-                drop.style.animationDelay =
-                    Math.random() * 2 + "s";
+    clickSound();
 
+    raining = !raining;
 
-                rain.appendChild(drop);
-            }
-        }
+    if (raining) {
 
+        document.body.style.background =
+            "linear-gradient(135deg, #111827, #1e293b, #0f172a)";
 
-        /* =========================
-           MUSIK
-        ========================= */
+        message.innerText =
+            "🌧️ mode hujan aktif. sekarang rebahan dan jangan banyak gaya.";
 
-        const music =
-            document.getElementById("music");
+        startRainSound();
 
+        createRain();
 
-        const musicButton =
-            document.getElementById("musicButton");
+    } else {
 
+        document.body.style.background =
+            "radial-gradient(circle at top, #302b63, transparent 45%), linear-gradient(135deg, #0f0c29, #302b63, #24243e)";
 
-        function toggleMusic() {
+        message.innerText =
+            "☁️ hujannya dimatiin. tapi lu tetep harus istirahat.";
 
-            if (music.paused) {
+        stopRain();
 
-                music.play();
+    }
 
-                musicButton.innerText =
-                    "🎶 LAGI MUTER";
+}
 
-                document.getElementById("message")
-                    .innerText =
-                    "🎶 lagi muter. jangan nangis, lu lagi sakit.";
 
-                createParticles(8);
+/* =========================
+   HUJAN VISUAL
+========================= */
 
-            } else {
+function createRain() {
 
-                music.pause();
+    for (
+        let i = 0;
+        i < 80;
+        i++
+    ) {
 
-                musicButton.innerText =
-                    "🎵 PUTER LAGU";
+        const drop =
+            document.createElement("div");
 
-                document.getElementById("message")
-                    .innerText =
-                    "lagunya dimatiin. balik fokus sembuh.";
+        drop.className = "rain";
 
-            }
-        }
+        drop.style.left =
+            Math.random() * 100 + "%";
 
+        drop.style.animationDuration =
+            (.4 + Math.random() * .8) + "s";
 
-        /* =========================
-           SEMBUH
-        ========================= */
+        drop.style.animationDelay =
+            Math.random() * 2 + "s";
 
-        function healMe() {
+        document.body.appendChild(drop);
 
-            health = 100;
+    }
 
+}
 
-            document.getElementById("bar")
-                .style.width =
-                "100%";
 
+function stopRain() {
 
-            document.getElementById("percentage")
-                .innerText =
-                "100%";
+    document
+        .querySelectorAll(".rain")
+        .forEach(drop => drop.remove());
 
+}
 
-            document.getElementById("message")
-                .innerText =
-                "🎉 NAH. SEMBUH. BALIK JADI MANUSIA.";
 
+/* =========================
+   HEART EFFECT
+========================= */
 
-            document.getElementById("heart")
-                .innerText =
-                "💖";
+function createHearts() {
 
+    for (
+        let i = 0;
+        i < 8;
+        i++
+    ) {
 
-            createParticles(40);
-        }
+        const heart =
+            document.createElement("div");
 
+        heart.className = "heart";
 
-        /* =========================
-           PARTICLES
-        ========================= */
+        heart.innerText = "🫂";
 
-        function createParticles(amount) {
+        heart.style.left =
+            (40 + Math.random() * 20) + "%";
 
-            const emojis = [
-                "❤️",
-                "💗",
-                "💖",
-                "💕",
-                "✨",
-                "💫"
-            ];
+        heart.style.top =
+            (50 + Math.random() * 10) + "%";
 
+        heart.style.animationDelay =
+            Math.random() * .4 + "s";
 
-            for (let i = 0; i < amount; i++) {
+        document.body.appendChild(heart);
 
-                const particle =
-                    document.createElement("div");
+        setTimeout(
+            () => heart.remove(),
+            1800
+        );
 
+    }
 
-                particle.className =
-                    "particle";
+}
 
-
-                particle.innerText =
-                    emojis[
-                        Math.floor(
-                            Math.random() *
-                            emojis.length
-                        )
-                    ];
-
-
-                particle.style.left =
-                    (30 + Math.random() * 40) +
-                    "vw";
-
-
-                particle.style.top =
-                    (45 + Math.random() * 20) +
-                    "vh";
-
-
-                particle.style.animationDuration =
-                    (1 + Math.random() * 1.5) +
-                    "s";
-
-
-                document.body
-                    .appendChild(particle);
-
-
-                setTimeout(() => {
-
-                    particle.remove();
-
-                }, 2500);
-            }
-        }
-
-
-        /* =========================
-           KLIK LUAR SURAT
-        ========================= */
-
-        document
-            .getElementById("letterModal")
-            .addEventListener(
-                "click",
-                function(e) {
-
-                    if (e.target === this) {
-                        closeLetter();
-                    }
-
-                }
-            );
-
-
-        /* =========================
-           PESAN RANDOM
-        ========================= */
-
-        setInterval(() => {
-
-            if (Math.random() > 0.6) {
-
-                randomMessage();
-
-            }
-
-        }, 7000);
-
-    </script>
+</script>
 
 </body>
 </html>
